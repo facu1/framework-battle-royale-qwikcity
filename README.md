@@ -1,3 +1,26 @@
+# Framework Battle Royale!
+
+Probando Angular, Next, Nuxt, SvelteKit, y Qwik.
+
+# Resultados Qwik City en máquina local, en incógnito, con Chrome Profiler
+
+- 1ms Loading
+- 5ms Scripting
+- 2ms Rendering
+- 0ms Painting
+- 10ms System
+- 5019ms Idle
+- 5038ms Total
+
+# Resultados Lighthouse report, mode: Navigation, Device: Mobile
+
+- 100 Performance
+- 100 Accessibility
+- 100 Best Practices
+- 100 SEO
+
+# Idea de [Gentleman Programming](https://github.com/Gentleman-Programming) - [Video](https://www.youtube.com/watch?v=vl7BfyFfpHc)
+
 # Qwik City App ⚡️
 
 - [Qwik Docs](https://qwik.builder.io/)

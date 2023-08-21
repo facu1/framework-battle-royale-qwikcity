@@ -1,5 +1,17 @@
-import { component$, Slot } from "@builder.io/qwik";
-import type { RequestHandler } from "@builder.io/qwik-city";
+import {
+  component$,
+  createContextId,
+  type Signal,
+  Slot,
+  useSignal,
+  useStore,
+  type QRL,
+  $,
+  useContextProvider,
+} from "@builder.io/qwik";
+import { routeLoader$, type RequestHandler } from "@builder.io/qwik-city";
+import { InitialValues } from "@modular-forms/qwik";
+import { type User, emptyUserState } from "~/models";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -12,6 +24,31 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
+// Create Contexts
+export interface UserContextType {
+  user: User;
+  changeValues: QRL<(this: UserContextType, user: User) => void>;
+}
+
+export const DialogContext = createContextId<Signal<boolean>>("DialogContext");
+export const UserContext = createContextId<UserContextType>("UserContext");
+
+// Create User Form
+export const useFormLoader = routeLoader$<InitialValues<User>>(() => ({
+  name: "",
+}));
+
 export default component$(() => {
+  const dialogState = useSignal(false);
+  const userState = useStore({
+    user: emptyUserState,
+    changeValues: $(function (this: UserContextType, user: User) {
+      this.user = user;
+    }),
+  });
+
+  useContextProvider(DialogContext, dialogState);
+  useContextProvider(UserContext, userState);
+
   return <Slot />;
 });
